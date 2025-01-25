@@ -17,9 +17,11 @@ import androidx.core.app.ActivityCompat
 import com.example.vocalai.playback.AndroidAudioPlayer
 import com.example.vocalai.AudioRec
 import com.example.vocalai.ui.theme.VocalAITheme
+import com.example.vocalai.SpeechRecognition
 import java.io.File
 
 class MainActivity : ComponentActivity() {
+    private var speechRecognition = SpeechRecognition(this)
 
     private val recorder by lazy {
         AndroidAudioRecorder(applicationContext)
@@ -55,11 +57,14 @@ class MainActivity : ComponentActivity() {
                     }
                     Button(onClick = {
                         recorder.stop()
+                        speechRecognition.initialize()
+
                     }) {
                         Text(text = "Stop recording")
                     }
                     Button(onClick = {
                         player.playFile(audioFile ?: return@Button)
+
                     }) {
                         Text(text = "Play")
                     }
@@ -68,6 +73,7 @@ class MainActivity : ComponentActivity() {
                     }) {
                         Text(text = "Stop playing")
                     }
+
                 }
             }
         }
