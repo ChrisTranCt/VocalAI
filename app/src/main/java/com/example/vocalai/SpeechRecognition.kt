@@ -83,14 +83,14 @@ class SpeechRecognition(private val context: Context) {
         Log.d(TAG,"the answer was: ${scores.shape()[0]}")
 
         val resultString=""
-//        val result = output[0]
-//        val maxIndex = result.indices.maxByOrNull { result[it] } ?: -1
-//        val resultString =
-//            "Prediction Result: %d\nConfidence: %2f"
-//                .format(maxIndex, result[maxIndex])
-//        Log.d(TAG,resultString)
+        val resultData = output[0]
+        val topClassIndex = resultData.indices.maxByOrNull { resultData[it] } ?: -1
+        val probability = resultData[topClassIndex]
+
+        Log.d(TAG, "The probability is $probability, the word was $topClassIndex")
         return resultString
     }
+
     private fun testingInput(): IntArray {
         val sampleRate = 16000
         val duration = 0.975
